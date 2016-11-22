@@ -1,0 +1,26 @@
+{
+  "name": "hopverkefni",
+  "version": "1.0.0",
+  "description": "Matchar einstaklinga saman fyrir hópverkefni",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eldsmith/hopverkefni.git"
+  },
+  "contributors": [
+    {
+      "name": "Friðberg Reynir Traustason"
+    },
+    {
+      "name": "Eyþór Máni Steinarsson"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eldsmith/hopverkefni/issues"
+  },
+  "homepage": "https://github.com/eldsmith/hopverkefni#readme"
+}
