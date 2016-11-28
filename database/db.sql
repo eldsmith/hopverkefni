@@ -100,3 +100,20 @@ CREATE TABLE IF NOT EXISTS `Hopverkefni`.`userFacebook` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+/*View sem ég er að nota í user modelinu, það má replace-a þetta í framtíðinni*/
+CREATE VIEW `userWithFacebook` AS
+    SELECT
+        `users`.`ID` AS `ID`,
+        `users`.`name` AS `name`,
+        `users`.`phone` AS `phone`,
+        `users`.`firstSemester` AS `firstSemester`,
+        `users`.`startedElectives` AS `startedElectives`,
+        `users`.`graduating` AS `graduating`,
+        `userFacebook`.`ID` AS `facebookID`,
+        `userFacebook`.`token` AS `token`,
+        `userFacebook`.`email` AS `facebookEmail`,
+        `userFacebook`.`name` AS `facebookName`
+    FROM
+        (`users`
+        JOIN `userFacebook` ON ((`userFacebook`.`userID` = `users`.`ID`)))
