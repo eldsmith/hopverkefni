@@ -35,7 +35,7 @@ gulp.task('watch', ()=>{
 
 gulp.task('browser-sync', ()=>{
   browserSync.init({
-      proxy: "http://localhost:" + process.env.PORT || 5000,
+      proxy: "http://localhost:" + (process.env.PORT || 5000),
       files: ["public/**/*.*"]
   });
 });
