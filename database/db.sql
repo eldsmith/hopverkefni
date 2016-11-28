@@ -7,6 +7,7 @@ CREATE TABLE users(
 	ID int auto_increment PRIMARY KEY,
 	name varchar(255),
 	phone int(7),
+	email varchar(255),
 	firstSemester boolean,
 	startedElectives boolean,
 	gratuating boolean
@@ -23,7 +24,7 @@ CREATE TABLE groups(
 /*Þessi tafla heldur utan um tæknir sem notandi getur mögulega sett á sig*/
 CREATE TABLE techTags(
 	ID int auto_increment PRIMARY KEY,
-	name varchar(255)
+	name varchar(255) UNIQUE
 );
 /*Tengitafla milli notendanna og tæknitaggana
 double primarykey notaður til að fyrirbyggja
@@ -63,4 +64,16 @@ CREATE TABLE userSocialMedia(
 	FOREIGN KEY (userID) REFERENCES users(ID),
 	FOREIGN KEY (socialID) REFERENCES socialMedia(ID),
 	PRIMARY KEY (userID, socialID)
+)
+/*Þessi tala heldur utan um mötch, er ekki viss um
+hvernig mér tókst að láta hana fara framhjá mér
+matcherID heldur utan um þann sem er að matcha
+matcheeID heldur utan um þann sem er verið að matcha(eða ekki)
+við. shownLove er síðan bool sem segir til um hvort
+matchið var jákvætt eða ekki*/
+CREATE TABLE matching(
+	ID int auto_increment PRIMARY KEY,
+	matcherID int,
+	matcheeID int,
+	shownLove boolean
 )
