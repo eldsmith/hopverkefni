@@ -9,7 +9,7 @@ CREATE TABLE users(
 	phone int(7),
 	firstSemester boolean,
 	startedElectives boolean,
-	gratuating boolean
+	graduating boolean
 );
 /*Groups taflan heldur utan um hópana með tvöföldum primarykey
 Það þýðir að einn notandi getur verið í mörgum hópum en þetta er
@@ -36,7 +36,7 @@ CREATE TABLE userTechTags(
 	PRIMARY KEY (tagID, userID)
 );
 /*Mjög basic tafla sem heldur utan um project
-tengist við notendatöfluna og inniheldur bara 
+tengist við notendatöfluna og inniheldur bara
 basic titil og lýsingu. Gæti verið kúl að tengja
 þetta við tæknitöggin líka?*/
 CREATE TABLE projects(
@@ -64,3 +64,26 @@ CREATE TABLE userSocialMedia(
 	FOREIGN KEY (socialID) REFERENCES socialMedia(ID),
 	PRIMARY KEY (userID, socialID)
 )
+
+
+/*Sorry kemur beint úr forward engineer. En það er nauðsyn á spes töflu
+fyrir facebookLogin, ástæðan fyrir spes töflu er vegna þess að upplýsingar eru
+mismunandi eftir social media logins, (twitter er t.d. með usernames) og þá þarf
+hvert social media login að geyma mismunandi upplýsingar*/
+DROP TABLE IF EXISTS `Hopverkefni`.`userFacebook` ;
+
+CREATE TABLE IF NOT EXISTS `Hopverkefni`.`userFacebook` (
+  `ID` VARCHAR(255) NOT NULL COMMENT '',
+  `token` VARCHAR(255) NOT NULL COMMENT '',
+  `email` VARCHAR(255) NULL COMMENT '',
+  `name` VARCHAR(255) NULL COMMENT '',
+  `userID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`ID`)  COMMENT '',
+  INDEX `fk_userFacebookLogin_users1_idx` (`userID` ASC)  COMMENT '',
+  UNIQUE INDEX `userID_UNIQUE` (`userID` ASC)  COMMENT '',
+  CONSTRAINT `fk_userFacebookLogin_users1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `Hopverkefni`.`users` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
