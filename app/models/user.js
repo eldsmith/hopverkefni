@@ -79,7 +79,7 @@ exports.findOne = (Id, table, cb)=>{
   {
     db.query(select, [Id], (error, results)=>{
         if(results.length === 0){
-          results = null;
+          results = [null];
         }
         if(cb) cb(error, results[0]);
     });
