@@ -64,7 +64,7 @@ CREATE TABLE userSocialMedia(
 	FOREIGN KEY (userID) REFERENCES users(ID),
 	FOREIGN KEY (socialID) REFERENCES socialMedia(ID),
 	PRIMARY KEY (userID, socialID)
-)
+);
 /*Þessi tala heldur utan um mötch, er ekki viss um
 hvernig mér tókst að láta hana fara framhjá mér
 matcherID heldur utan um þann sem er að matcha
@@ -76,7 +76,7 @@ CREATE TABLE matching(
 	matcherID int,
 	matcheeID int,
 	shownLove boolean
-)
+);
 
 
 /*Sorry kemur beint úr forward engineer. En það er nauðsyn á spes töflu
@@ -107,6 +107,7 @@ CREATE VIEW `userWithFacebook` AS
         `users`.`ID` AS `ID`,
         `users`.`name` AS `name`,
         `users`.`phone` AS `phone`,
+				`users`.`email` AS `email`,
         `users`.`firstSemester` AS `firstSemester`,
         `users`.`startedElectives` AS `startedElectives`,
         `users`.`graduating` AS `graduating`,
