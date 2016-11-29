@@ -1,6 +1,6 @@
 require('dotenv').config();
-
-var app = require('./app/server');
+const User = require('./app/models/user');
+const app = require('./app/server');
 
 app.set('port', (process.env.PORT || 5000));
 

@@ -6,7 +6,8 @@ module.exports = (passport)=>{
 
     // serialize-ar userinn í session
     passport.serializeUser((user, done)=>{
-        done(null, user.ID);
+        console.log(user);
+        done(null, user.id);
     });
 
     passport.deserializeUser((id, done)=>{
@@ -25,55 +26,58 @@ module.exports = (passport)=>{
 
     // runnað þegar facebook hefur skilað okkur upplýsingum
     (token, refreshToken, profile, done)=>{
-        // Finnum notendan í facebook töfluni
-        User.findOne(profile.id, 'userFacebook', function(err, user) {
-
-            //Ef að villa kemur upp í database
-            if (err)
-                return done(err);
-
-            // Loggum inn notenda ef hann finnst
-            if (user) {
-                return done(null, user);
-            } else {
-                // Ef enginn notandi finnst, búum hann til
-                let newUser = {};
-                let fbUser = {};
-                let name =  (profile.name.givenName || '') + ' ' +
-                            (profile.name.middleName || '') + ' ' +
-                            (profile.name.familyName || '');
-
-                // stilla allar upplýsingar frá facebook sem við sendum á modelið
-                fbUser.ID    = profile.id;
-                fbUser.token = token;
-                fbUser.name  =  name;
-                fbUser.email = profile.emails[0].value;
-
-                //Notendaupplýsingar uppfærðar
-                newUser.name = name;
-                newUser.email = fbUser.email;
-
-                //setjum inn userinn í db
-                User.add(newUser, (error, result)=>{
-                  if(error){
-                    return done(error);
-                  }
-
-                  newUser.ID = result.insertId; //Sækjum id eftir insert
-
-                  //Bætum fb login upplýsingum á user og tengjum hann við fb.
-                  User.addToFacebook(newUser.ID, fbUser, (error, result)=>{
-                    if(error){
-                      return done(error)
-                    }
-
-                    return done(null, newUser)
-                  })
-                })
-            }
-
-        });
-
+        fb = {token: token, refreshToken: refreshToken, profile: profile}
+        let user = new User(false);
+        let fbLogin = facebookLogin(user, fb, done); // runnum generator fáum iterator
+        user.setGenerator(fbLogin); //skellum generator/iteratornum inn og hefjum keyrslu
     }));
 
 };
+
+/* Generator sem sér um user byggt á facebook aðgang og á að tengist user object */
+function *facebookLogin(user, fb, done){
+  //Reynir að nota fb.id-ið til þess að finna notendann í gagnagrunninum
+  user.getFacebook(fb.profile.id);
+  let [error, userFbInfo] = yield;
+
+  //Error er db error
+  if(error){
+    return done(error);
+  }
+
+  //Ef notandinn finnst þá erum við búnir
+  if(userFbInfo){
+    return done(null, user);
+  }
+
+  let name =  (fb.profile.name.givenName || '') + ' ' +
+              (fb.profile.name.middleName || '') + ' ' +
+              (fb.profile.name.familyName || '');
+
+  fbUser = {
+    id : fb.profile.id,
+    token: fb.token,
+    name: name,
+    email: fb.profile.emails[0].value
+  }
+
+  //Fyrst að notandi fannst ekki í gagnagrunninum þá búum við til nýjan
+  user.create(fbUser);
+  [error, results] = yield;
+
+  if(error){
+    return done(error);
+  }
+
+  //Nú þegar við erum komin með nýjan user tengjum við hann við þennan facebook aðgang
+  user.addFacebook(fbUser);
+  [error, results] = yield;
+
+  if(error){
+    console.error('Error adding new user to facebook table');
+    return done(error);
+  }
+
+  //Userinn kominn, allt tókst.
+  return done(null, user);
+}
