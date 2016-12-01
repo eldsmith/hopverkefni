@@ -1,10 +1,11 @@
 nav.nav
-  div.nav-left
-    a.nav-item.is-brand(href="#")
-      p Hópverkefni
+  div.container
+    div.nav-left
+      span.nav-item.is-brand
+        p Hópverkefni
 
-  div.nav-right.nav-menu
-    a.nav-item.button.login-button(href="#") Login
+    div.nav-right.nav-menu
+      a.nav-item.login-button(href="#") Login
 
 div.modal.login-modal
   div.modal-background
@@ -14,5 +15,7 @@ div.modal.login-modal
         p.card-header-title Login
       div.card-content
         div.content
-          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          a.button.facebook-button(href="/auth/facebook")
+            span.fa.fa-facebook
+            div.button-text Login með Facebook
   button.modal-close
