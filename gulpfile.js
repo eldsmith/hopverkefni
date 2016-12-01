@@ -5,10 +5,11 @@ var gulp = require('gulp'),
   browserSync = require('browser-sync').create();
 
 gulp.task('css', ()=>{
-  return gulp.src(['./src/css/main.css'])
+  return gulp.src(['./src/css/**/*.css'])
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.cssmin())
     .pipe(plugins.autoprefixer())
+    .pipe(plugins.concat('main.css'))
     .pipe(plugins.rename({
             suffix: '.min'
         }))
@@ -17,8 +18,9 @@ gulp.task('css', ()=>{
 });
 
 gulp.task('js', ()=>{
-  return gulp.src(['./src/js/main.js'])
+  return gulp.src(['./src/js/**/*.js'])
     .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.concat('main.js'))
     .pipe(plugins.uglify())
     .pipe(plugins.rename({
             suffix: '.min'
@@ -29,8 +31,8 @@ gulp.task('js', ()=>{
 
 // watch for file changes and run tasks
 gulp.task('watch', ()=>{
-  gulp.watch(['./src/css/*.css'], ['css']);
-  gulp.watch(['./src/js/*.js'], ['js']);
+  gulp.watch(['./src/**/*.css'], ['css']);
+  gulp.watch(['./src/**/*.js'], ['js']);
 });
 
 gulp.task('browser-sync', ()=>{
