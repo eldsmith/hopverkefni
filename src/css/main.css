@@ -1,8 +1,40 @@
-.button-text{
-  padding-left: 1em;
-}
 
 .facebook-button{
   background-color: #3b5998;
   color: white;
+}
+
+
+.question-form{
+  padding-top: 10em;
+  background-color: rgb(233, 12, 114);
+  color: white;
+}
+
+.question-form h1{
+  color: white;
+}
+
+.nav-dot{
+  color: rgb(0, 16, 22);
+  margin: 1em;
+}
+
+.nav-dot.is-selected{
+  color: rgb(52, 237, 188);
+}
+.nav-question-form{
+  padding-top: 5em;
+}
+
+.question-form-button{
+  margin: 1em 0em;
+  padding: 2em;
+  width: 100%;
+}
+
+/*Setja v-cloak á element með mustache code,
+til að fela það þar til að vue er búið að loadast*/
+[v-cloak] {
+  display: none;
 }

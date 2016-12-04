@@ -1,0 +1,18 @@
+extends layouts/master
+
+block content
+
+  //- POC eins og er, ekkert fancy styling.
+  div.columns
+    div.column.is-half.is-offset-one-quarter.question-form
+
+
+      div#question-form
+        h1.title.is-1.center-text(v-cloak) {{question.text}}
+        a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('yes')") Já
+        a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('no')") Nei
+
+        //- TODO: nav-dots implement
+          nav.pagination.nav-question-form
+            i.fa.fa-circle.nav-dot.is-active
+            i.fa.fa-circle.nav-dot

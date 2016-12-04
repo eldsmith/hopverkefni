@@ -1,5 +1,4 @@
 (function(){
-
   /* Modal settings */
   var loginBtn = document.getElementsByClassName('login-button')[0];
   var modals = document.getElementsByClassName('modal');
