@@ -44,6 +44,7 @@
     "gulp-cssmin": "^0.1.7",
     "gulp-load-plugins": "^1.4.0",
     "gulp-nodemon": "^2.2.1",
+    "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.9.1",
     "gulp-uglify": "^2.0.0"
