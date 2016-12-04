@@ -2,14 +2,15 @@ require('dotenv').config();
 
 var gulp = require('gulp'),
   plugins = require('gulp-load-plugins')(),
+  plumber = require('gulp-plumber');
   browserSync = require('browser-sync').create();
 
 gulp.task('css', ()=>{
   return gulp.src(['./src/css/**/*.css'])
     .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.cssmin())
     .pipe(plugins.autoprefixer())
     .pipe(plugins.concat('main.css'))
+    .pipe(plugins.cssmin())
     .pipe(plugins.rename({
             suffix: '.min'
         }))
@@ -20,6 +21,7 @@ gulp.task('css', ()=>{
 gulp.task('js', ()=>{
   return gulp.src(['./src/js/**/*.js'])
     .pipe(plugins.sourcemaps.init())
+    .pipe(plumber())
     .pipe(plugins.concat('main.js'))
     .pipe(plugins.uglify())
     .pipe(plugins.rename({
