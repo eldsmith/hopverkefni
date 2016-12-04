@@ -27,14 +27,14 @@
           block content
         </div>
 
-        <script src="js/plugins.js"></script>
-        <script src="js/main.min.js"></script>
-
           //- Ef við erum í development þá viljum við ekki loada minified vue
           -if(locals.settings.env === 'development')
             script(src="https://unpkg.com/vue@2.1.4/dist/vue.js")
           -else
             script(src="https://unpkg.com/vue@2.1.4/dist/vue.min.js")
+
+        <script src="js/plugins.js"></script>
+        <script src="js/main.min.js"></script>
 
         block scripts
     </body>
