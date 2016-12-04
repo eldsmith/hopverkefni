@@ -15,6 +15,7 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
+
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -28,6 +29,13 @@
 
         <script src="js/plugins.js"></script>
         <script src="js/main.min.js"></script>
+
+          //- Ef við erum í development þá viljum við ekki loada minified vue
+          -if(locals.settings.env === 'development')
+            script(src="https://unpkg.com/vue@2.1.4/dist/vue.js")
+          -else
+            script(src="https://unpkg.com/vue@2.1.4/dist/vue.min.js")
+
         block scripts
     </body>
 </html>
