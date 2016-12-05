@@ -6,12 +6,12 @@ const db = require('../config/db');
 * Einnig hægt samt að nota bara hefðbundin callbacks*/
 class User {
   constructor(user){
-    this._setUser(user);
+    this.setUser(user);
   }
 
   /* Býr til nýjan notenda, stillir objectið á hann og setur í db */
   create(user, cb){
-    this._setUser(user);
+    this.setUser(user);
     let userValues =  [this.name, this.phone, this.email, this.firstSemester,
                       this.startedElectives, this.graduating];
     let select = 'INSERT INTO users (name, phone, email, firstSemester, startedElectives, graduating) VALUES(?, ?, ?, ?, ?, ?)';
@@ -23,6 +23,18 @@ class User {
     )
   }
 
+  update(user, cb){
+    this.setUser(user);
+    let userValues =  [this.name, this.phone, this.email, this.firstSemester,
+                      this.startedElectives, this.graduating, this.id];
+    let update =  'UPDATE users SET name=?, phone=?, email=?, firstSemester=?, '+
+                  'startedElectives=?, graduating=? WHERE ID=?';
+
+    db.query(update, userValues, (error, results)=>{
+        this._finish(error, results, cb);
+      }
+    )
+  }
   /* Sækir notendan + facebook upplýsingar með facebook id */
   getFacebook(fbId, cb){
     let select = 'SELECT * FROM userWithFacebook WHERE facebookID = ?';
@@ -32,7 +44,7 @@ class User {
         }
         else{
           results = results[0];
-          this._setUser(results);
+          this.setUser(results);
         }
         this._finish(error, results, cb);
     });
@@ -55,13 +67,27 @@ class User {
     generator.next();
   }
 
+  /* Stillir userinn*/
+  setUser(user){
+    if(user){
+      if('id' in user || 'ID' in user) this.id = user.id || user.ID
+      if('name' in user) this.name = user.name;
+      if('phone' in user) this.phone = user.phone;
+      if('email' in user) this.email = user.email;
+      if('firstSemester' in user) this.firstSemester = user.firstSemester;
+      if('startedElectives' in user) this.startedElectives = user.startedElectives;
+      if('graduating' in user) this.graduating = user.graduating;
+    }
+  }
+
   /* Static function sem skilar user byggt á id
    * TODO: bjóða upp á return á nýju instancei af clasanum */
   static findById(userId, cb){
     let select = 'SELECT * FROM users WHERE ID = ?';
     db.query(select, [userId], (error, results)=>{
         if(cb){
-          cb(error, results);
+          let user = new User(results[0]);
+          cb(error, user);
         }
       }
     )
@@ -79,16 +105,6 @@ class User {
     }
   }
 
-  /* Helper function til að stilla this */
-  _setUser(user){
-    this.id = user.id || user.ID || this.id;
-    this.name = user.name || this.name;
-    this.phone = user.phone || this.phone;
-    this.email = user.email || this.email;
-    this.firstSemester = user.firstSemester || this.firstSemester;
-    this.startedElectives = user.startedElectives || this.startedElectives;
-    this.graduating = user.graduating || this.graduating;
-  }
 }
 
 module.exports = User;
