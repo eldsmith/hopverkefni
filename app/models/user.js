@@ -85,8 +85,13 @@ class User {
     let q = 'SELECT * FROM users WHERE ID = ?';
     db.query(q, [userId], (error, results)=>{
         if(cb){
-          let user = new User(results[0]);
-          cb(error, user);
+          if(results.length === 0){
+            cb(error, null);
+          }
+          else{
+            let user = new User(results[0]);
+            cb(error, user);
+          }
         }
       }
     )
