@@ -125,7 +125,7 @@ create procedure userInfo(userID int)
 begin
 	SELECT users.name, users.phone, users.email, users.firstSemester, users.startedElectives, users.graduating
 	FROM users
-	WHERE users.ID = userID
+	WHERE users.ID = userID;
 end$$
 delimiter ;
 
@@ -136,7 +136,7 @@ begin
 	SELECT tags.name
 	FROM tags
 	INNER JOIN userTechTags ON tags.ID = userTechTags.tagID
-	WHERE userTechTags.userID = userID
+	WHERE userTechTags.userID = userID;
 end$$
 delimiter ;
 
@@ -145,7 +145,7 @@ drop procedure if exists getTags $$
 create procedure getTags()
 begin
 	SELECT techtags.name
-	FROM techtags
+	FROM techtags;
 end$$
 delimiter ;
 
@@ -154,7 +154,7 @@ drop procedure if exists getUsers $$
 create procedure getUsers()
 begin
 	SELECT users.ID
-	FROM users
+	FROM users;
 end$$
 delimiter ;
 
