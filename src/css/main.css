@@ -112,3 +112,25 @@ input[type="checkbox"]:checked + label span{
 .no i{
   color:red;
 }
+
+.chosenTag{
+  display: inline-block;
+  background-color: #303c74;
+  color:white;
+  padding:6px 30px 6px 10px;
+  margin:3px 6px 3px 0;
+  border:1px solid black;
+  border-radius: 3px;
+  position: relative;
+}
+.deleteTag{
+  position: absolute;
+  top:8px;
+  right:8px;
+}
+.deleteTag:hover{
+  cursor: pointer;
+}
+#addTag{
+  width:80%;
+}
