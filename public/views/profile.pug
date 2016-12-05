@@ -6,8 +6,6 @@ block content
     <div class="columns is-centered">
       <div class="column is-half">
         <div class="tile is-parent">
-
-          - if(!setSemester)
             <article class="tile is-child notification is-primary">
               <div class="userSettings" id="profileForm">
                 <label class="label">Nafn:</label>
@@ -82,7 +80,8 @@ block content
               </p>
             </article>
         </div>
-          - if(setSemester)
+          //- if(setSemester)
+
             div#question-form
               h1.title.is-1.center-text(v-cloak) {{question.text}}
               a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('yes')") Já
