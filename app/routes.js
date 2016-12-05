@@ -1,6 +1,5 @@
 const User = require('./models/user');
 
-//FIXME: Ætti að vera route hluti til controllera
 module.exports = function(app, passport){
   require('./controllers/api')(app);
 
@@ -9,7 +8,14 @@ module.exports = function(app, passport){
   });
 
   app.get('/profile', (req, res)=>{
-    res.render('profile');
+    if(!req.user){
+      res.redirect('/');
+    }
+    
+    // Ef notandi er ekki búinn að stilla startedElectives
+    // þá þarf að stilla þær og aðrar viðkomandi upplýsingar
+    let setSemester = req.user.startedElectives === null;
+    res.render('profile', {setSemester: setSemester});
   });
 
   app.get('/matches', (req, res)=>{

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-
+//FIXME: Betri error handling
 module.exports = (app)=>{
 
   //FIXME: Bæta við check að það séu ekki ógild input,

@@ -45,10 +45,12 @@
               firstSemester: questionData.firstSemester.answer
             },
             success: function(data){
-              console.log(data);
+              //FIXME: Ekki góð lausn
+              //Refresha til að komast að eðlilegri profile síðu
+              window.location.href = '/profile';
             },
             error: function(data){
-              console.log(data);
+              //FIXME: Error handling
             }
           })
         }
