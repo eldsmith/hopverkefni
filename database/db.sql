@@ -117,7 +117,7 @@ CREATE VIEW `userWithFacebook` AS
         `userFacebook`.`name` AS `facebookName`
     FROM
         (`users`
-        JOIN `userFacebook` ON ((`userFacebook`.`userID` = `users`.`ID`)))
+        JOIN `userFacebook` ON ((`userFacebook`.`userID` = `users`.`ID`)));
 
 delimiter $$
 drop procedure if exists userInfo $$
