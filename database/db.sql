@@ -133,9 +133,9 @@ delimiter $$
 drop procedure if exists userTags $$
 create procedure userTags(userID int)
 begin
-	SELECT tags.name
-	FROM tags
-	INNER JOIN userTechTags ON tags.ID = userTechTags.tagID
+	SELECT techTags.ID, techTags.name
+	FROM techTags
+	INNER JOIN userTechTags ON techTags.ID = userTechTags.tagID
 	WHERE userTechTags.userID = userID;
 end$$
 delimiter ;

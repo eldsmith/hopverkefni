@@ -7,6 +7,9 @@ const db = require('../config/db');
 class User {
   constructor(user){
     this.setUser(user);
+    if(user.id){
+      this.getTags();
+    }
   }
 
   /* Býr til nýjan notenda, stillir objectið á hann og setur í db */
@@ -35,6 +38,7 @@ class User {
       }
     )
   }
+
   /* Sækir notendan + facebook upplýsingar með facebook id */
   getFacebook(fbId, cb){
     let q = 'SELECT * FROM userWithFacebook WHERE facebookID = ?';
@@ -48,6 +52,64 @@ class User {
         }
         this._finish(error, results, cb);
     });
+  }
+
+  /* Sækir tög fyrir notendann */
+  getTags(cb){
+    let q = 'CALL userTags(?)'
+
+    db.query(q, [this.id], (error, results, fields)=>{
+        this._finish(error, results[0], cb);
+      }
+    )
+  }
+
+  /*  bætir við taggi í userTechTags töfluna
+      TODO: ætti að vera hægt að búa til nýtt tag hér og setja það síðan inn*/
+  addTag(tagID, cb){
+    let q = 'INSERT INTO userTechTags (tagID, userID) VALUES(?, ?)';
+
+    db.query(q, [tagID, this.id], (error, results, fields)=>{
+        this._finish(error, results, cb);
+      }
+    )
+  }
+
+  /*  bætir við mörgum töggum í userTechTags töfluna */
+  addTags(tags, cb){
+    let q = 'INSERT INTO userTechTags (tagID, userID) VALUES ?';
+
+    let values = [];
+
+    for(let id of tagIDs){
+      values.push([id, this.id]);
+    }
+
+    console.log(values);
+    db.query(q, [values], (error, results, fields)=>{
+        this._finish(error, results, cb);
+      }
+    )
+  }
+
+  /*  eyðir taggi í userTechTags töfluna*/
+  deleteTag(tagIDs, cb){
+    let q = 'DELETE FROM userTechTags WHERE tagID=? AND userID=?';
+
+    db.query(q, [tagID, this.id], (error, results, fields)=>{
+        this._finish(error, results, cb);
+      }
+    )
+  }
+
+  /*  eyðir öllum tögum í userTechTags töfluna*/
+  deleteAllTags(cb){
+    let q = 'DELETE FROM userTechTags WHERE userID=?';
+
+    db.query(q, [this.id], (error, results, fields)=>{
+        this._finish(error, results, cb);
+      }
+    )
   }
 
   /* addar facebook upplýsingum notendans í userFacebook */

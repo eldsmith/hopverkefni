@@ -20,7 +20,7 @@ module.exports = (app)=>{
 
     if(req.user){
       req.user.update(semester, (error, results)=>{
-        res.send(error || results);
+        res.send(results);
       });
     }
   });
@@ -49,14 +49,48 @@ module.exports = (app)=>{
       phone: req.param('phone')
     }
 
-    console.log(user);
     if(req.user){
       req.user.update(user, (error, results)=>{
-        res.send(error || results);
+        res.send(results);
       });
     }
   });
 
+  //Breytir notenda tags eftir að hafa deletað þeim öllum
+  // FIXME: delete all tags ætti að vera aðskilið en höfum ekki tíma
+  router.post('/user/tags', (req, res)=>{
+    tagIDs = req.param('ids');
+
+    if(req.user){
+      req.user.deleteAllTags((error, results)=>{
+        req.user.addTags(tagIDs, (error, results)=>{
+          res.send(results);
+        })
+      });
+    }
+  });
+
+  //Sækir notenda tags
+  router.get('/user/tags', (req, res)=>{
+    tagID = req.param('id');
+
+    if(req.user){
+      req.user.getTags((error, results)=>{
+        res.send(results);
+      });
+    }
+  });
+
+  //eyðir notenda tagi
+  router.delete('/user/tags', (req, res)=>{
+    tagID = req.param('id');
+
+    if(req.user){
+      req.user.deleteTag(tagID, (error, results)=>{
+        res.send(results);
+      });
+    }
+  });
 
   /**** Tags ****/
 
