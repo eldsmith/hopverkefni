@@ -6,7 +6,6 @@ module.exports = (passport)=>{
 
     // serialize-ar userinn í session
     passport.serializeUser((user, done)=>{
-        console.log(user);
         done(null, user.id);
     });
 

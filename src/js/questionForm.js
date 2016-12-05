@@ -36,6 +36,22 @@
         if(nextQuestion){
           this.question = questionData[nextQuestion];
         }
+        else{
+          $.ajax('/api/semester', {
+            type: 'POST',
+            data: {
+              startedElectives: questionData.startedElectives.answer,
+              graduating: questionData.graduating.answer,
+              firstSemester: questionData.firstSemester.answer
+            },
+            success: function(data){
+              console.log(data);
+            },
+            error: function(data){
+              console.log(data);
+            }
+          })
+        }
       }
     }
   });

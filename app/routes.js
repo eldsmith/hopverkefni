@@ -1,7 +1,8 @@
-module.exports = function(app, passport){
+const User = require('./models/user');
 
-  var connection = require("./config/db.js");
-  connection.connect();
+//FIXME: Ætti að vera route hluti til controllera
+module.exports = function(app, passport){
+  require('./controllers/api')(app);
 
   app.get('/', (req, res)=>{
     res.render('index');
@@ -23,20 +24,4 @@ module.exports = function(app, passport){
           successRedirect : '/profile',
           failureRedirect : '/'
   }));
-
-
-  app.get("/api", function(req, res) {
-    res.send("Þú hefur náð samband við apann, hvernig get ég aðstoðað?");
-  });
-
-  /*app.get("/api/userinfo:id", function(req, res) {
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-      if (err) {
-        res.send(err);
-      }
-     
-      res.send('The solution is: ', rows[0].solution);
-    });
-  });*/
-
 };
