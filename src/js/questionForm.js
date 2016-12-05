@@ -34,6 +34,7 @@
         var nextQuestion = this.question[answer];
 
         if(nextQuestion){
+          //Sækir næstu spurningu sem er mismunandi eftir yes eða no svari
           this.question = questionData[nextQuestion];
         }
         else{
