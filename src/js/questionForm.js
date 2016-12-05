@@ -37,7 +37,7 @@
           this.question = questionData[nextQuestion];
         }
         else{
-          $.ajax('/api/semester', {
+          $.ajax('/api/user/semester', {
             type: 'POST',
             data: {
               startedElectives: questionData.startedElectives.answer,
