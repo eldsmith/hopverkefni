@@ -38,3 +38,77 @@ til að fela það þar til að vue er búið að loadast*/
 [v-cloak] {
   display: none;
 }
+
+.pair{
+  margin:1.5em 0;
+}
+
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + label span {
+    display: inline-block;
+    padding:10px;
+    margin:3px;
+    border:1px solid #303c74;
+    background-color: white;
+    color:#303c74;
+    border-radius: 3px;
+    user-select: none;
+}
+input[type="checkbox"]:checked + label span{
+    background-color: #00d1b2;
+    color: white;
+    border: 1px solid #303c74;
+}
+.tech{
+  display: inline-block;
+  padding:10px;
+  margin:3px;
+  border:1px solid #303c74;
+  background-color: #f5f5f5;
+  color:#303c74;
+  border-radius: 3px;
+  user-select: none;
+}
+.techList{
+    display: flex;
+    flex-flow: row wrap;
+    padding:0;
+}
+.tech:first-of-type{
+    margin:3px 0;
+}
+.subtitle{
+  margin-bottom:0;
+}
+
+.choosers{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chooserContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chooser{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  border:2px solid black;
+  margin:20px;
+  width:100px;
+  height:100px;
+}
+.chooser:hover{
+  background-color: white;
+}
+.yes{
+  color:green;
+}
+.no i{
+  color:red;
+}

@@ -1,11 +1,19 @@
-nav.nav
-  div.container
-    div.nav-left
-      span.nav-item.is-brand
-        p Hópverkefni
+<nav class="nav has-shadow is-unselectable">
+  <div class="container">
+    <div class="nav-left">
+      <span class="nav-item is-brand">
+        <p>Hópverkefni</p>
+      </span>
+    </div>
+    <div class="nav-right nav-menu">
+      <a class="nav-item" href="/"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Pairing</a>
+      <a class="nav-item" href="/profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Profile</a>
+      <a class="nav-item" href="/matches"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Matches</a>
+      <a class="nav-item login-button" href="#">Login</a>
+    </div>
+  </div>
+</nav>
 
-    div.nav-right.nav-menu
-      a.nav-item.login-button(href="#") Login
 
 div.modal.login-modal
   div.modal-background

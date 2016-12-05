@@ -1,18 +1,67 @@
 extends layouts/master
 
 block content
+  
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="tile is-parent">
+          <article class="tile is-child notification is-primary">
+            <div class="userSettings">
+              <label class="label">Nafn:</label>
+              <p class="control">
+                <input class="input" type="text" placeholder="Jón Sigurðsson">
+              </p>
+              <label class="label">Símanúmer</label>
+              <p class="control has-icon has-icon-right">
+                <input class="input" type="text" placeholder="663-1806">
+              </p>
+              <label class="label">Email</label>
+              <p class="control has-icon has-icon-right">
+                <input class="input" type="text" placeholder="jon@sigurdsson.is">
+              </p>
+              <label class="label">Tæknir sem þú getur unnið með:</label>
+              <div class="techList">
+                <input name="tech" type="checkbox" value="0" id="0"/>
+                <label for="0"><span>CSS</span></label>
+                <input name="tech" type="checkbox" value="1" id="1"/>
+                <label for="1"><span>Javascript</span></label>
+                <input name="tech" type="checkbox" value="2" id="2"/>
+                <label for="2"><span>NodeJS</span></label>
+                <input name="tech" type="checkbox" value="3" id="3"/>
+                <label for="3"><span>Pug</span></label>
+                <input name="tech" type="checkbox" value="4" id="4"/>
+                <label for="4"><span>SCSS</span></label>
+                <input name="tech" type="checkbox" value="5" id="5"/>
+                <label for="5"><span>CoffeeScript</span></label>
+                <input name="tech" type="checkbox" value="6" id="6"/>
+                <label for="6"><span>Git</span></label>
+                <input name="tech" type="checkbox" value="7" id="7"/>
+                <label for="7"><span>Java</span></label>
+                <input name="tech" type="checkbox" value="8" id="8"/>
+                <label for="8"><span>C#</span></label>
+                <input name="tech" type="checkbox" value="9" id="9"/>
+                <label for="9"><span>Python</span></label>
+                <input name="tech" type="checkbox" value="10" id="10"/>
+                <label for="10"><span>Django</span></label>
+                <input name="tech" type="checkbox" value="11" id="11"/>
+                <label for="11"><span>Thing</span></label>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+  //- //- POC eins og er, ekkert fancy styling.
+  //- div.columns
+  //-   div.column.is-half.is-offset-one-quarter.question-form
+  //-     div#question-form
+  //-       h1.title.is-1.center-text(v-cloak) {{question.text}}
+  //-       a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('yes')") Já
+  //-       a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('no')") Nei
 
-  //- POC eins og er, ekkert fancy styling.
-  div.columns
-    div.column.is-half.is-offset-one-quarter.question-form
-
-
-      div#question-form
-        h1.title.is-1.center-text(v-cloak) {{question.text}}
-        a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('yes')") Já
-        a.button.is-large.is-primary.question-form-button(v-on:click="answerQuestion('no')") Nei
-
-        //- TODO: nav-dots implement
-          nav.pagination.nav-question-form
-            i.fa.fa-circle.nav-dot.is-active
-            i.fa.fa-circle.nav-dot
+  //-       //- TODO: nav-dots implement
+  //-         nav.pagination.nav-question-form
+  //-           i.fa.fa-circle.nav-dot.is-active
+  //-           i.fa.fa-circle.nav-dot

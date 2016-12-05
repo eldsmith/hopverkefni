@@ -1,5 +1,58 @@
 extends layouts/master
 
 block content
-  h1 Hello World
-  <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="tile is-parent">
+          <article class="tile is-child notification is-primary">
+            <div class="pair">
+              <p class="subtitle">Nafn:</p>
+              <p class="title">Jón Sigurðsson</p>
+            </div>
+            <div class="pair">
+              <p class="subtitle">Netfang:</p>
+              <p class="title">jon@sigurdsson.is</p>
+            </div>
+            <div class="pair">
+              <p class="subtitle">Hvað kanntu á:</p>
+              <div class="techList">
+                <div class="tech">CSS</div>
+                <div class="tech">SCSS</div>
+                <div class="tech">Javascript</div>
+                <div class="tech">NodeJS</div>
+              </div>
+            </div>
+            <div class="pair">
+              <p class="subtitle">Fyrri verkefni:</p>
+              <div class="techList">
+                <div class="tech">Titill á verkefni</div>
+                <div class="tech">Annar titill</div>
+                <div class="tech">Nafn hérna</div>
+                <div class="tech">Kúl verkefni</div>
+              </div>
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="choosers columns">
+          <div class="column is-half chooserContainer">
+            <div class="chooser yes">
+              <i class="fa fa-check fa-5x is-centered" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="column is-half chooserContainer">
+            <div class="chooser no">
+              <i class="fa fa-times fa-5x is-centered" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -118,3 +118,52 @@ CREATE VIEW `userWithFacebook` AS
     FROM
         (`users`
         JOIN `userFacebook` ON ((`userFacebook`.`userID` = `users`.`ID`)))
+
+delimiter $$
+drop procedure if exists userInfo $$
+create procedure userInfo(userID int)
+begin
+	SELECT users.name, users.phone, users.email, users.firstSemester, users.startedElectives, users.graduating
+	FROM users
+	WHERE users.ID = userID
+end$$
+delimiter ;
+
+delimiter $$
+drop procedure if exists userTags $$
+create procedure userTags(userID int)
+begin
+	SELECT tags.name
+	FROM tags
+	INNER JOIN userTechTags ON tags.ID = userTechTags.tagID
+	WHERE userTechTags.userID = userID
+end$$
+delimiter ;
+
+delimiter $$
+drop procedure if exists getTags $$
+create procedure getTags()
+begin
+	SELECT techtags.name
+	FROM techtags
+end$$
+delimiter ;
+
+delimiter $$
+drop procedure if exists getUsers $$
+create procedure getUsers()
+begin
+	SELECT users.ID
+	FROM users
+end$$
+delimiter ;
+
+delimiter $$
+drop procedure if exists getMatches $$
+create procedure getMatches(userID int)
+begin
+	-- CREATE TEMPORARY TABLE loveShown
+	-- declare loveShown = (SELECT matching.matcheeID FROM matching WHERE matching.matcherID = userID AND shownLove = 1)
+	-- declare
+end$$
+delimiter ;
