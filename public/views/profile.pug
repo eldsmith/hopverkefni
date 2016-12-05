@@ -9,20 +9,47 @@ block content
 
           - if(!setSemester)
             <article class="tile is-child notification is-primary">
-              <div class="userSettings">
+              <div class="userSettings" id="profileForm">
                 <label class="label">Nafn:</label>
                 <p class="control">
-                  <input class="input" type="text" placeholder="Jón Sigurðsson">
+                  <input class="input" type="text" placeholder="Jón Sigurðsson"  id="name">
                 </p>
                 <label class="label">Símanúmer</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" type="text" placeholder="663-1806">
+                  <input class="input" type="text" placeholder="123-4567" id="phone">
                 </p>
                 <label class="label">Email</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" type="text" placeholder="jon@sigurdsson.is">
+                  <input class="input" type="text" placeholder="jon@sigurdsson.is"  id="email">
                 </p>
-                <label class="label">Tæknir sem þú getur unnið með:</label>
+                <label class="label">Er þetta fyrsta önnin þín?</label>
+                <p class="control">
+                  <label class="radio">
+                    <input type="radio" name="firstSemester" value="1">Já
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="firstSemester" value="0">Nei
+                  </label>
+                </p>
+                <label class="label">Ertu í valáföngum?</label>
+                <p class="control">
+                  <label class="radio">
+                    <input type="radio" name="takingElectives" value="1">Já
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="takingElectives" value="0">Nei
+                  </label>
+                </p>
+                <label class="label">Ertu að útskrifast?</label>
+                <p class="control">
+                  <label class="radio">
+                    <input type="radio" name="isGraduating" value="1">Já
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="isGraduating" value="0">Nei
+                  </label>
+                </p>
+                <!-- <label class="label">Tæknir sem þú getur unnið með:</label>
                 <div class="techList">
                   <input name="tech" type="checkbox" value="0" id="0"/>
                   <label for="0"><span>CSS</span></label>
@@ -48,12 +75,13 @@ block content
                   <label for="10"><span>Django</span></label>
                   <input name="tech" type="checkbox" value="11" id="11"/>
                   <label for="11"><span>Thing</span></label>
-                </div>
+                </div> -->
               </div>
+              <p class="control">
+                <button class="button is-info" id="profileSubmit">Staðfesta breytingar</button>
+              </p>
             </article>
-
         </div>
-
           - if(setSemester)
             div#question-form
               h1.title.is-1.center-text(v-cloak) {{question.text}}

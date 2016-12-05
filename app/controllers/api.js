@@ -8,9 +8,9 @@ module.exports = (app)=>{
   //       t.d. startedElectives og firstSemester eiga aldrei bæði að vera true
   router.post('/user/semester', (req, res)=>{
     let semester = {
-      startedElectives: req.param('startedElectives') === 'true',
-      firstSemester: req.param('firstSemester') === 'true',
-      graduating: req.param('graduating') === 'true'
+      startedElectives: req.param('startedElectives'),
+      firstSemester: req.param('firstSemester'),
+      graduating: req.param('graduating')
     }
 
     if(req.user){
