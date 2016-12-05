@@ -49,7 +49,6 @@ module.exports = (app)=>{
       phone: req.param('phone')
     }
 
-    console.log(user);
     if(req.user){
       req.user.update(user, (error, results)=>{
         res.send(error || results);
@@ -57,6 +56,38 @@ module.exports = (app)=>{
     }
   });
 
+  //Breytir notenda tags
+  router.post('/user/tags', (req, res)=>{
+    tagID = req.param('id');
+
+    if(req.user){
+      req.user.addTag(tagID, (error, results)=>{
+        res.send(error || results);
+      });
+    }
+  });
+
+  //Sækir notenda tags
+  router.get('/user/tags', (req, res)=>{
+    tagID = req.param('id');
+
+    if(req.user){
+      req.user.getTags((error, results)=>{
+        res.send(error || results);
+      });
+    }
+  });
+
+  //eyðir notenda tagi
+  router.delete('/user/tags', (req, res)=>{
+    tagID = req.param('id');
+
+    if(req.user){
+      req.user.deleteTag(tagID, (error, results)=>{
+        res.send(error || results);
+      });
+    }
+  });
 
   /**** Tags ****/
 
