@@ -14,9 +14,9 @@ class User {
     this.setUser(user);
     let userValues =  [this.name, this.phone, this.email, this.firstSemester,
                       this.startedElectives, this.graduating];
-    let select = 'INSERT INTO users (name, phone, email, firstSemester, startedElectives, graduating) VALUES(?, ?, ?, ?, ?, ?)';
+    let q = 'INSERT INTO users (name, phone, email, firstSemester, startedElectives, graduating) VALUES(?, ?, ?, ?, ?, ?)';
 
-    db.query(select, userValues, (error, results)=>{
+    db.query(q, userValues, (error, results)=>{
         this.id = results.insertId;
         this._finish(error, results, cb);
       }
@@ -27,18 +27,18 @@ class User {
     this.setUser(user);
     let userValues =  [this.name, this.phone, this.email, this.firstSemester,
                       this.startedElectives, this.graduating, this.id];
-    let update =  'UPDATE users SET name=?, phone=?, email=?, firstSemester=?, '+
+    let q =  'UPDATE users SET name=?, phone=?, email=?, firstSemester=?, '+
                   'startedElectives=?, graduating=? WHERE ID=?';
 
-    db.query(update, userValues, (error, results)=>{
+    db.query(q, userValues, (error, results)=>{
         this._finish(error, results, cb);
       }
     )
   }
   /* Sækir notendan + facebook upplýsingar með facebook id */
   getFacebook(fbId, cb){
-    let select = 'SELECT * FROM userWithFacebook WHERE facebookID = ?';
-    db.query(select, [fbId], (error, results)=>{
+    let q = 'SELECT * FROM userWithFacebook WHERE facebookID = ?';
+    db.query(q, [fbId], (error, results)=>{
         if(results.length === 0){
           results = null;
         }
@@ -53,9 +53,9 @@ class User {
   /* addar facebook upplýsingum notendans í userFacebook */
   addFacebook(fb, cb){
     let insertInfo = [fb.id, fb.token, fb.email, fb.name, this.id];
-    let select = 'INSERT INTO userFacebook (ID, token, email, name, userID) VALUES(?, ?, ?, ?, ?)';
+    let q = 'INSERT INTO userFacebook (ID, token, email, name, userID) VALUES(?, ?, ?, ?, ?)';
 
-    db.query(select, insertInfo, (error, results, fields)=>{
+    db.query(q, insertInfo, (error, results, fields)=>{
         this._finish(error, results, cb);
       }
     )
@@ -80,11 +80,10 @@ class User {
     }
   }
 
-  /* Static function sem skilar user byggt á id
-   * TODO: bjóða upp á return á nýju instancei af clasanum */
+  /* Static function sem skilar user byggt á id*/
   static findById(userId, cb){
-    let select = 'SELECT * FROM users WHERE ID = ?';
-    db.query(select, [userId], (error, results)=>{
+    let q = 'SELECT * FROM users WHERE ID = ?';
+    db.query(q, [userId], (error, results)=>{
         if(cb){
           let user = new User(results[0]);
           cb(error, user);
