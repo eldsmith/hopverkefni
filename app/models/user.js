@@ -75,11 +75,38 @@ class User {
     )
   }
 
+  /*  bætir við mörgum töggum í userTechTags töfluna */
+  addTags(tags, cb){
+    let q = 'INSERT INTO userTechTags (tagID, userID) VALUES ?';
+
+    let values = [];
+
+    for(let id of tagIDs){
+      values.push([id, this.id]);
+    }
+
+    console.log(values);
+    db.query(q, [values], (error, results, fields)=>{
+        this._finish(error, results, cb);
+      }
+    )
+  }
+
   /*  eyðir taggi í userTechTags töfluna*/
-  deleteTag(tagID, cb){
+  deleteTag(tagIDs, cb){
     let q = 'DELETE FROM userTechTags WHERE tagID=? AND userID=?';
 
     db.query(q, [tagID, this.id], (error, results, fields)=>{
+        this._finish(error, results, cb);
+      }
+    )
+  }
+
+  /*  eyðir öllum tögum í userTechTags töfluna*/
+  deleteAllTags(cb){
+    let q = 'DELETE FROM userTechTags WHERE userID=?';
+
+    db.query(q, [this.id], (error, results, fields)=>{
         this._finish(error, results, cb);
       }
     )

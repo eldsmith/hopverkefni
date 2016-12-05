@@ -20,7 +20,7 @@ module.exports = (app)=>{
 
     if(req.user){
       req.user.update(semester, (error, results)=>{
-        res.send(error || results);
+        res.send(results);
       });
     }
   });
@@ -51,18 +51,21 @@ module.exports = (app)=>{
 
     if(req.user){
       req.user.update(user, (error, results)=>{
-        res.send(error || results);
+        res.send(results);
       });
     }
   });
 
-  //Breytir notenda tags
+  //Breytir notenda tags eftir að hafa deletað þeim öllum
+  // FIXME: delete all tags ætti að vera aðskilið en höfum ekki tíma
   router.post('/user/tags', (req, res)=>{
-    tagID = req.param('id');
+    tagIDs = req.param('ids');
 
     if(req.user){
-      req.user.addTag(tagID, (error, results)=>{
-        res.send(error || results);
+      req.user.deleteAllTags((error, results)=>{
+        req.user.addTags(tagIDs, (error, results)=>{
+          res.send(results);
+        })
       });
     }
   });
@@ -73,7 +76,7 @@ module.exports = (app)=>{
 
     if(req.user){
       req.user.getTags((error, results)=>{
-        res.send(error || results);
+        res.send(results);
       });
     }
   });
@@ -84,7 +87,7 @@ module.exports = (app)=>{
 
     if(req.user){
       req.user.deleteTag(tagID, (error, results)=>{
-        res.send(error || results);
+        res.send(results);
       });
     }
   });
