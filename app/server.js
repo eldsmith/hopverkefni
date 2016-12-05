@@ -4,7 +4,6 @@ const app = express();
 const passport = require('passport');
 const flash = require('connect-flash');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
@@ -20,7 +19,6 @@ app.use(express.static(__dirname + '/../public'));
 
 // Other Middleware
 app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 
 app.use(session({ secret: 'secret' })); // session secret
