@@ -7,9 +7,6 @@ const db = require('../config/db');
 class User {
   constructor(user){
     this.setUser(user);
-    if(user.id){
-      this.getTags();
-    }
   }
 
   /* Býr til nýjan notenda, stillir objectið á hann og setur í db */

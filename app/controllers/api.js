@@ -59,7 +59,7 @@ module.exports = (app)=>{
   //Breytir notenda tags eftir að hafa deletað þeim öllum
   // FIXME: delete all tags ætti að vera aðskilið en höfum ekki tíma
   router.post('/user/tags', (req, res)=>{
-    tagIDs = req.param('ids');
+    let tagIDs = req.param('ids');
 
     if(req.user){
       req.user.deleteAllTags((error, results)=>{
@@ -72,7 +72,7 @@ module.exports = (app)=>{
 
   //Sækir notenda tags
   router.get('/user/tags', (req, res)=>{
-    tagID = req.param('id');
+    let tagID = req.param('id');
 
     if(req.user){
       req.user.getTags((error, results)=>{
@@ -83,7 +83,7 @@ module.exports = (app)=>{
 
   //eyðir notenda tagi
   router.delete('/user/tags', (req, res)=>{
-    tagID = req.param('id');
+    let tagID = req.param('id');
 
     if(req.user){
       req.user.deleteTag(tagID, (error, results)=>{
