@@ -7,24 +7,6 @@ module.exports = (app)=>{
 
   /**** User ****/
 
-  // Breytir semester upplýsingum notendans
-  //FIXME: Færa þetta yfir í user þar sem structure-ið hefur breyst svolítið
-  //FIXME: Bæta við check að það séu ekki ógild input,
-  //       t.d. startedElectives og firstSemester eiga aldrei bæði að vera true
-  router.post('/user/semester', (req, res)=>{
-    let semester = {
-      startedElectives: req.param('startedElectives'),
-      firstSemester: req.param('firstSemester'),
-      graduating: req.param('graduating')
-    }
-
-    if(req.user){
-      req.user.update(semester, (error, results)=>{
-        res.send(results);
-      });
-    }
-  });
-
   //Sækir upplýsingar um notendann sem er loggaður inn
   router.get('/user', (req,res)=>{
     if(req.user){
@@ -42,11 +24,16 @@ module.exports = (app)=>{
   });
 
   //Breytir notenda upplýsingum
+  //FIXME: Bæta við check að það séu ekki ógild input,
+  //       t.d. startedElectives og firstSemester eiga aldrei bæði að vera true
   router.post('/user', (req, res)=>{
     let user = {
       name: req.param('name'),
       email: req.param('email'),
-      phone: req.param('phone')
+      phone: req.param('phone'),
+      startedElectives: req.param('startedElectives'),
+      firstSemester: req.param('firstSemester'),
+      graduating: req.param('graduating')
     }
 
     if(req.user){

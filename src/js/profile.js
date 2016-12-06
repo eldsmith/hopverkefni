@@ -24,21 +24,17 @@
     var userData = {
       name: $("#name").val(),
       phone: $("#phone").val(),
-      email: $("#email").val()
-    }
-    var semesterData = {
+      email: $("#email").val(),
       firstSemester: $("input:radio[name=firstSemester]:checked").val(),
       startedElectives: $("input:radio[name=takingElectives]:checked").val(),
       graduating: $("input:radio[name=isGraduating]:checked").val()
     }
+
     $.post('/api/user', userData, function(data, textStatus, xhr) {
-      console.log(data, textStatus, xhr);  
+      console.log(data, textStatus, xhr);
       swal("Vúhúú", "Uppfærsla gagnanna tókst hnökralaust", "success");
     });
-    $.post('/api/user/semester', semesterData, function(data, textStatus, xhr) {
-      console.log(data, textStatus, xhr);  
-    });
-    
+
   });
 
 
@@ -116,7 +112,7 @@
   };
   $("#confirmTag").click(function() {
     textBoxToggled();
-  }); 
+  });
   $('#addTag').keypress(function(e){
     if(e.which == 13){
       textBoxToggled();
