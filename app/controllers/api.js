@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const Tag = require('../models/tag');
 const User = require('../models/user');
+const Match = require('../util/match');
+
 
 //FIXME: Betri error handling
 //FIXME: Ætti kannski ekki að vera senda errors frá db beint á client í production
@@ -31,6 +33,18 @@ module.exports = (app)=>{
       User.getAllIds((error, results)=>{
         res.send(results);
       });
+    }
+  });
+
+  //Matchar tvo usera
+  router.post('/users/match', (req,res)=>{
+    let matchingId = req.param('id');
+
+    if(req.user){
+      User.findById(matchingId, (error, user)=>{
+        let match = Match(req.user, user);
+        res.send(match);
+      })
     }
   });
 

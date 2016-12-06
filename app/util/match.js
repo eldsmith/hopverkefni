@@ -1,5 +1,3 @@
-const User = require('../models/user');
-
 // Finds how well mainUser matches to matchingUser
 const userMatch = (mainUser, matchingUser) => {
   const semesterWeight = 0.6; //Hversu svipað langt þeir eru komnir í náminu weighar
@@ -57,6 +55,8 @@ const userMatch = (mainUser, matchingUser) => {
   }
   console.log(matchingUser.score);
 }
+
+module.exports = userMatch;
 
 //Match a user with a group
 /*
