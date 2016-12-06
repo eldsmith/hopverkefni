@@ -108,7 +108,9 @@ module.exports = (app)=>{
             res.status(500).send(error);
           }
         }
-
+        else{
+          res.send(results);
+        }
       });
     }
     else{
