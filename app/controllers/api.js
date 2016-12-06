@@ -59,52 +59,46 @@ module.exports = (app)=>{
   //  Breytir notenda tags eftir að hafa deletað þeim öllum
   //  FIXME: delete all tags ætti að vera aðskilið en höfum ekki tíma
   router.post('/user/tags', (req, res)=>{
-    let newTags = req.param('newTags'); // array af nöfnum með nýjum tögum
-    let tagIds = req.param('ids'); // ekki ný tög, id fyrir tög sem eru nú þegar í db
-    let dbTagNames = [];
-    let addTags = [];
+    let tagList = req.param('tags'); // array af nöfnum fyrir tags
+    let tagIds = [];
 
     // FIXME: KILL IT WITH FIRE
     if(req.user){
       req.user.deleteAllTags((error, results)=>{
-        if(newTags){
-          Tag.getAll((error, results)=>{
+        Tag.getAll((error, results)=>{
 
-            // FIXME: Implimenta getAllNames í modelinu, eða options í getAll.
-            results.map((obj)=>{
-              dbTagNames.push(obj.name);
-            })
-
-            //Vera viss um að tagginu hafi ekki verið bætt við á þeim tíma sem userinn var að velja
-            for(let name of newTags){
-              if (dbTagNames.indexOf(name) === -1){
-                addTags.push(name);
+          //Förum í gegnum results og tjekkum hvort tögin eru í db
+          if(results){
+            for(let row of results){
+              console.log(row.name);
+              let index = tagList.indexOf(row.name);
+              if(index > -1){
+                tagIds.push(row.ID);
+                tagList.splice(index, 1);
               }
             }
-            if(addTags){
-              for(let tag in addTags){
-                Tag.addTag(addTags[tag], (error, results)=>{
-                  tagIds.push(results.insertId);
-                  if(tag >= addTags.length - 1){
-                    req.user.addTags(tagIds, (error, results)=>{
-                      res.send(results);
-                    });
-                  }
-                });
-              }
-            }
-            else{
-              req.user.addTags(tagIds, (error, results)=>{
-                res.send(results);
+          }
+
+          //Ef við erum með eitthver tags eftir þá þurfum við að bæta þeim við í db
+          if(tagList.length >= 1){
+            console.log(tagList);
+            for(let tag in tagList){
+              Tag.addTag(tagList[tag], (error, results)=>{
+                tagIds.push(results.insertId);
+                if(tag >= tagList.length - 1){
+                  req.user.addTags(tagIds, (error, results)=>{
+                    res.send(results);
+                  });
+                }
               });
             }
-          });
-        }
-      else{
-        req.user.addTags(tagIds, (error, results)=>{
-          res.send(results);
+          }
+          else{
+            req.user.addTags(tagIds, (error, results)=>{
+              res.send(results);
+            });
+          }
         });
-      }
       })
     }
   });
