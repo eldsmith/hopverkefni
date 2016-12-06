@@ -25,6 +25,15 @@ module.exports = (app)=>{
     }
   });
 
+  //Sækir ids fyrir alla notendur
+  router.get('/users', (req,res)=>{
+    if(req.user){
+      User.getAllIds((error, results)=>{
+        res.send(results);
+      });
+    }
+  });
+
 
   //Breytir notenda upplýsingum
   //FIXME: Bæta við check að það séu ekki ógild input,

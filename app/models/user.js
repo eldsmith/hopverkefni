@@ -51,6 +51,7 @@ class User {
     });
   }
 
+
   /* Sækir tög fyrir notendann */
   getTags(cb){
     let q = 'CALL userTags(?)'
@@ -156,6 +157,16 @@ class User {
       if('startedElectives' in user) this.startedElectives = user.startedElectives;
       if('graduating' in user) this.graduating = user.graduating;
     }
+  }
+
+  static getAllIds(cb){
+    let q = 'SELECT ID FROM users';
+
+    db.query(q, [], (error, results)=>{
+      if(cb){
+        cb(error, results);
+      }
+    });
   }
 
   /* Static function sem skilar user byggt á id*/
