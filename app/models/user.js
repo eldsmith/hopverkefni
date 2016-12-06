@@ -61,6 +61,25 @@ class User {
     )
   }
 
+  /* Sækir tög fyrir notendann */
+  getTagsNames(cb){
+    let q = 'CALL userTagsNames(?)';
+    let resultSet = [];
+
+    db.query(q, [this.id], (error, results, fields)=>{
+        if(results){
+          for(let row of results[0]){
+            resultSet.push(row.name);
+          }
+          this._finish(error, resultSet, cb);
+        }
+        else{
+          this._finish(error, results[0], cb);
+        }
+      }
+    )
+  }
+
   /*  bætir við taggi í userTechTags töfluna
       TODO: ætti að vera hægt að búa til nýtt tag hér og setja það síðan inn*/
   addTag(tagID, cb){
