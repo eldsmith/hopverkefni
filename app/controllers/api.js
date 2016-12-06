@@ -100,6 +100,11 @@ module.exports = (app)=>{
             }
           });
         }
+      else{
+        req.user.addTags(tagIds, (error, results)=>{
+          res.send(results);
+        });
+      }
       })
     }
   });
