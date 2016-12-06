@@ -78,7 +78,7 @@ class User {
 
     let values = [];
 
-    for(let id of tagIDs){
+    for(let id of tags){
       values.push([id, this.id]);
     }
 

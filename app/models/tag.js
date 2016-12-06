@@ -65,6 +65,31 @@ class Tag {
     )
   }
 
+  static addTag(tag, cb){
+    let q = 'INSERT INTO techTags (name) VALUES(?)';
+
+    db.query(q, [tag], (error, results)=>{
+      if(cb){
+        cb(error, results);
+      }
+    });
+  }
+
+  /* Static function sem addar mörgum tögum í db*/
+  static addTags(tags, cb){
+    let q = 'INSERT INTO techTags (name) VALUES ?';
+    let tagArray = [];
+
+    for(let tag of tags){
+      tagArray.push([tag]);
+    }
+
+    db.query(q, [tagArray], (error, tags)=>{
+      if(cb){
+        cb(error, tags);
+      }
+    });
+  }
   /* method sem er alltaf kallað eftir að db-in skilar niðurstöðum
    * Ef generator er define-aður þá nextar hann generatorinn og keyrsla
    * á aðal kóðanum heldur áfram */

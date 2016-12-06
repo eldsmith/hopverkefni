@@ -56,24 +56,56 @@ module.exports = (app)=>{
     }
   });
 
-  //Breytir notenda tags eftir að hafa deletað þeim öllum
-  // FIXME: delete all tags ætti að vera aðskilið en höfum ekki tíma
+  //  Breytir notenda tags eftir að hafa deletað þeim öllum
+  //  FIXME: delete all tags ætti að vera aðskilið en höfum ekki tíma
   router.post('/user/tags', (req, res)=>{
-    let tagIDs = req.param('ids');
+    let newTags = req.param('newTags'); // array af nöfnum með nýjum tögum
+    let tagIds = req.param('ids'); // ekki ný tög, id fyrir tög sem eru nú þegar í db
+    let dbTagNames = [];
+    let addTags = [];
 
+    // FIXME: KILL IT WITH FIRE
     if(req.user){
       req.user.deleteAllTags((error, results)=>{
-        req.user.addTags(tagIDs, (error, results)=>{
-          res.send(results);
-        })
-      });
+        if(newTags){
+          Tag.getAll((error, results)=>{
+
+            // FIXME: Implimenta getAllNames í modelinu, eða options í getAll.
+            results.map((obj)=>{
+              dbTagNames.push(obj.name);
+            })
+
+            //Vera viss um að tagginu hafi ekki verið bætt við á þeim tíma sem userinn var að velja
+            for(let name of newTags){
+              if (dbTagNames.indexOf(name) === -1){
+                addTags.push(name);
+              }
+            }
+            if(addTags){
+              for(let tag in addTags){
+                Tag.addTag(addTags[tag], (error, results)=>{
+                  tagIds.push(results.insertId);
+                  if(tag >= addTags.length - 1){
+                    req.user.addTags(tagIds, (error, results)=>{
+                      res.send(results);
+                    });
+                  }
+                });
+              }
+            }
+            else{
+              req.user.addTags(tagIds, (error, results)=>{
+                res.send(results);
+              });
+            }
+          });
+        }
+      })
     }
   });
 
   //Sækir notenda tags
   router.get('/user/tags', (req, res)=>{
-    let tagID = req.param('id');
-
     if(req.user){
       req.user.getTags((error, results)=>{
         res.send(results);
@@ -109,7 +141,9 @@ module.exports = (app)=>{
           }
         }
         else{
-          res.send(results);
+          req.user.addTag(results.insertId,(error, results)=>{
+            res.send(results);
+          })
         }
       });
     }
