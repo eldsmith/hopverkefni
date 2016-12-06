@@ -141,6 +141,17 @@ end$$
 delimiter ;
 
 delimiter $$
+drop procedure if exists userTagsNames $$
+create procedure userTagsNames(userID int)
+begin
+	SELECT techTags.name
+	FROM techTags
+	INNER JOIN userTechTags ON techTags.ID = userTechTags.tagID
+	WHERE userTechTags.userID = userID;
+end$$
+delimiter ;
+
+delimiter $$
 drop procedure if exists getTags $$
 create procedure getTags()
 begin
