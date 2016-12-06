@@ -11,10 +11,7 @@ module.exports = (passport)=>{
 
     passport.deserializeUser((id, done)=>{
         User.findById(id, function(err, user) {
-            user.getTagsNames((err, results)=>{
-              user.tags = results;
-              done(err, user);
-            });
+            done(err, user);
         });
     });
 

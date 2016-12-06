@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Tag = require('../models/tag');
+const User = require('../models/user');
 
 //FIXME: Betri error handling
 //FIXME: Ætti kannski ekki að vera senda errors frá db beint á client í production
@@ -14,6 +15,7 @@ module.exports = (app)=>{
         name: req.user.name,
         email: req.user.email,
         phone: req.user.phone,
+        tags: req.user.tags,
         firstSemester: req.user.firstSemester,
         startedElectives: req.user.startedElectives,
         graduating: req.user.graduating
@@ -22,6 +24,7 @@ module.exports = (app)=>{
       res.send(user);
     }
   });
+
 
   //Breytir notenda upplýsingum
   //FIXME: Bæta við check að það séu ekki ógild input,

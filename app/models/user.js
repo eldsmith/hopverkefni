@@ -168,7 +168,10 @@ class User {
           }
           else{
             let user = new User(results[0]);
-            cb(error, user);
+            user.getTagsNames((error, results)=>{
+              user.tags = results;
+              cb(error, user);
+            });
           }
         }
       }
