@@ -38,6 +38,7 @@
     $.post('/api/user/semester', semesterData, function(data, textStatus, xhr) {
       console.log(data, textStatus, xhr);  
     });
+    
   });
 
 
@@ -46,6 +47,7 @@
   // TAGS BABY
   var tagArray = [];
   var allTags = [];
+  var userTags = [];
   $(document).ready(function() {
     $("#addTag").autocomplete({
         source: allTags
@@ -58,8 +60,35 @@
       });
       console.log(allTags);
     });
-  });
 
+    $.get("/api/user/tags", function(data, status) {
+      data.forEach( function(thing, index) {
+        userTags.push(thing.name);
+        var index = allTags.indexOf(thing.name);
+        if (index > -1) {
+          allTags.splice(index, 1);
+        }
+      });
+      loadUserTags(userTags);
+      tagArray = userTags;
+      console.log(tagArray);
+    })
+  });
+  function loadUserTags(array) {
+    for (var i = 0; i < array.length; i++) {
+      var box = $('#techList');
+      var tag = array[i];
+      var deletr = document.createElement("div");
+      var thing = document.createElement("span");
+      box.append(thing);
+      thing.innerHTML = tag;
+      thing.className = "chosenTag";
+      deletr.className = "fa fa-times deleteTag";
+      deletr.addEventListener("click", deleteThing);
+      thing.appendChild(deletr);
+      document.getElementById('addTag').value = "";
+    }
+  }
   var textBoxToggled = function(){
     var box = $('#techList');
     var tag = $('#addTag').val();
@@ -83,6 +112,7 @@
     document.getElementById('addTag').value = "";
     $('#addTag').focus();
     allTags.splice($.inArray(tag, allTags), 1);
+    console.log(tagArray);
   };
   $("#confirmTag").click(function() {
     textBoxToggled();
@@ -102,4 +132,5 @@
     soonGone.remove();
     console.log("lala");
   };
+
 })();
